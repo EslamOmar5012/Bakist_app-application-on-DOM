@@ -9,6 +9,8 @@ const btnCloseModal = document.querySelector('.btn--close-modal');
 const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
 const btnScrollTo = document.querySelector('.btn--scroll-to');
 const section1 = document.querySelector('#section--1');
+const page_links = document.querySelector('.nav__links');
+const nav_links = document.querySelectorAll('.nav__link');
 
 const openModal = function (e) {
   e.preventDefault();
@@ -35,11 +37,30 @@ document.addEventListener('keydown', function (e) {
   }
 });
 
-//TODO implement smoothe scroll
+//TODO implement smooth scroll
 btnScrollTo.addEventListener('click', e => {
   section1.scrollIntoView({ behavior: 'smooth' });
 });
 
+//TODO implement page navigation with smooth scroll
+
+//old way not good
+// nav_links.forEach(link => {
+//   link.addEventListener('click', function (e) {
+//     e.preventDefault();
+//     const id = link.getAttribute('href');
+//     document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
+//   });
+// });
+
+//new way with Event Delegation
+page_links.addEventListener('click', e => {
+  e.preventDefault();
+  if (e.target.className === 'nav__link') {
+    const id = e.target.getAttribute('href');
+    document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
+  }
+});
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -92,18 +113,48 @@ message.style.width =
 // //example of edeting the variables in js
 // document.documentElement.style.setProperty('--color-primary', 'orangered');
 
-//example of get and set attributes in DOM
-console.log(document.querySelector('.nav__link').href); //it will get the absolute value of the attribute
-console.log(document.querySelector('.nav__link').getAttribute('href')); //it will get the relative value of the attribute
+// //example of get and set attributes in DOM
+// console.log(document.querySelector('.nav__link').href); //it will get the absolute value of the attribute
+// console.log(document.querySelector('.nav__link').getAttribute('href')); //it will get the relative value of the attribute
 
-document
-  .querySelector('.nav__links')
-  .setAttribute('data-version-number', '3.0');
+// document
+//   .querySelector('.nav__links')
+//   .setAttribute('data-version-number', '3.0');
 
-console.log(document.querySelector('.nav__links').dataset.versionNumber);
+// console.log(document.querySelector('.nav__links').dataset.versionNumber);
 
-//example of styles in DOM
-message.classList.add('Eslam');
-message.classList.remove('Eslam');
-message.classList.toggle('Eslam');
-console.log(message.classList.contains('Eslam'));
+// //example of styles in DOM
+// message.classList.add('Eslam');
+// message.classList.remove('Eslam');
+// message.classList.toggle('Eslam');
+// console.log(message.classList.contains('Eslam'));
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// //example of Event Propagation
+
+// function getRandomColor() {
+//   return `rgb(${Math.trunc(Math.random() * 256)}, ${Math.trunc(
+//     Math.random() * 256
+//   )}, ${Math.trunc(Math.random() * 256)})`;
+// }
+
+// document.querySelector('.nav').addEventListener('click', function (e) {
+//   e.preventDefault();
+//   console.log(e.target); //target refers to the source where the event is created
+//   console.log(e.currentTarget); // current target refers to the the actual target where the event listener is in it
+//   this.style.backgroundColor = getRandomColor();
+// });
+
+// document.querySelector('.nav__links').addEventListener('click', function (e) {
+//   e.preventDefault();
+//   console.log(e.target); //target refers to the source where the event is created
+//   console.log(e.currentTarget); // current target refers to the the actual target where the event listener is in it
+//   this.style.backgroundColor = getRandomColor();
+// });
+
+// document.querySelector('.nav__item').addEventListener('click', function (e) {
+//   e.preventDefault();
+//   console.log(e.target); //target refers to the source where the event is created
+//   console.log(e.currentTarget); // current target refers to the the actual target where the event listener is in it
+//   this.style.backgroundColor = getRandomColor();
+// });
