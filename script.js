@@ -11,6 +11,10 @@ const btnScrollTo = document.querySelector('.btn--scroll-to');
 const section1 = document.querySelector('#section--1');
 const page_links = document.querySelector('.nav__links');
 const nav_links = document.querySelectorAll('.nav__link');
+const tabbed_btns = document
+  .querySelector('.operations__tab-container')
+  .querySelectorAll('button');
+const nav_elements = document.querySelector('nav').children;
 
 const openModal = function (e) {
   e.preventDefault();
@@ -27,7 +31,6 @@ const closeModal = function () {
 //   btnsOpenModal[i].addEventListener('click', openModal);
 
 btnsOpenModal.forEach(btn => btn.addEventListener('click', openModal));
-
 btnCloseModal.addEventListener('click', closeModal);
 overlay.addEventListener('click', closeModal);
 
@@ -60,6 +63,26 @@ page_links.addEventListener('click', e => {
     const id = e.target.getAttribute('href');
     document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
   }
+});
+
+//TODO implement tabbed component
+tabbed_btns.forEach(btn => {
+  btn.addEventListener('click', function (e) {
+    e.preventDefault();
+    for (const el of tabbed_btns) {
+      if (el === btn) {
+        el.classList.add('operations__tab--active');
+        document
+          .querySelector(`.operations__content--${el.dataset.tab}`)
+          .classList.add('operations__content--active');
+      } else {
+        el.classList.remove('operations__tab--active');
+        document
+          .querySelector(`.operations__content--${el.dataset.tab}`)
+          .classList.remove('operations__content--active');
+      }
+    }
+  });
 });
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////
