@@ -16,6 +16,7 @@ const tabbed_btns = document
   .querySelectorAll('button');
 const nav_elements = page_links.querySelectorAll('.nav__item');
 const allSections = document.querySelectorAll('.section');
+const allImages = document.querySelectorAll('[data-src]');
 
 const openModal = function (e) {
   e.preventDefault();
@@ -129,7 +130,7 @@ const elemObs = new IntersectionObserver(
       if (entry.isIntersecting)
         entry.target.classList.remove('section--hidden');
       else return;
-      console.log(entry);
+      //console.log(entry);
       observers.unobserve(entry.target);
     });
   },
@@ -143,6 +144,28 @@ allSections.forEach(section => {
   elemObs.observe(section);
   section.classList.add('section--hidden');
 });
+
+//TODO implement lazy loading images
+const imagesObs = new IntersectionObserver(
+  function (entries, observers) {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        console.log(entry);
+        entry.target.src = entry.target.dataset.src;
+        entry.target.addEventListener('load', function () {
+          this.classList.remove('lazy-img');
+        });
+        observers.unobserve(entry.target);
+      }
+    });
+  },
+  {
+    root: null,
+    threshold: 1,
+  }
+);
+
+allImages.forEach(image => imagesObs.observe(image));
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
