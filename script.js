@@ -166,6 +166,51 @@ const imagesObs = new IntersectionObserver(
 );
 
 allImages.forEach(image => imagesObs.observe(image));
+
+//TODO slider component
+const slides = document.querySelectorAll('.slide');
+const btn_left = document.querySelector('.slider__btn--left');
+const btn_right = document.querySelector('.slider__btn--right');
+
+const goToSlide = function (slide) {
+  slides.forEach((s, i) => {
+    s.style.transform = `translateX(${(i - slide) * 100}%)`;
+  });
+};
+
+goToSlide(0);
+
+let currSlide = 0;
+let maxSlide = slides.length - 1;
+//go to next slide
+
+const nextSlide = () => {
+  if (currSlide < maxSlide) currSlide++;
+  else currSlide = 0;
+
+  goToSlide(currSlide);
+};
+
+btn_right.addEventListener('click', nextSlide);
+
+const prevSlide = () => {
+  if (currSlide === 0) currSlide = maxSlide;
+  else currSlide--;
+
+  goToSlide(currSlide);
+};
+
+btn_left.addEventListener('click', prevSlide);
+
+//go to prevous slide
+// btn_left.addEventListener('click', () => {
+//   if (currSlide < slides.length - 1) currSlide--;
+//   else currSlide = 0;
+//   slides.forEach((s, i) => {
+//     s.style.transform = `translateX(${(i + currSlide) * 100}%)`;
+//   });
+// });
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
