@@ -202,15 +202,10 @@ const prevSlide = () => {
 
 btn_left.addEventListener('click', prevSlide);
 
-//go to prevous slide
-// btn_left.addEventListener('click', () => {
-//   if (currSlide < slides.length - 1) currSlide--;
-//   else currSlide = 0;
-//   slides.forEach((s, i) => {
-//     s.style.transform = `translateX(${(i + currSlide) * 100}%)`;
-//   });
-// });
-
+document.addEventListener('keydown', e => {
+  if (e.key === 'e') nextSlide(currSlide);
+  else if (e.key === 'q') prevSlide(currSlide);
+});
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
