@@ -15,6 +15,7 @@ const tabbed_btns = document
   .querySelector('.operations__tab-container')
   .querySelectorAll('button');
 const nav_elements = page_links.querySelectorAll('.nav__item');
+const allSections = document.querySelectorAll('.section');
 
 const openModal = function (e) {
   e.preventDefault();
@@ -120,6 +121,28 @@ const observer = new IntersectionObserver(
     rootMargin: '-' + getComputedStyle(document.querySelector('.nav')).height,
   }
 ).observe(header);
+
+//TODO revealing elements on scrolling
+const elemObs = new IntersectionObserver(
+  (entries, observers) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting)
+        entry.target.classList.remove('section--hidden');
+      else return;
+      console.log(entry);
+      observers.unobserve(entry.target);
+    });
+  },
+  {
+    root: null,
+    threshold: 0.1,
+  }
+);
+
+allSections.forEach(section => {
+  elemObs.observe(section);
+  section.classList.add('section--hidden');
+});
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -191,29 +214,29 @@ message.style.width =
 
 // //example of Event Propagation
 
-function getRandomColor() {
-  return `rgb(${Math.trunc(Math.random() * 256)}, ${Math.trunc(
-    Math.random() * 256
-  )}, ${Math.trunc(Math.random() * 256)})`;
-}
+// function getRandomColor() {
+//   return `rgb(${Math.trunc(Math.random() * 256)}, ${Math.trunc(
+//     Math.random() * 256
+//   )}, ${Math.trunc(Math.random() * 256)})`;
+// }
 
-document.querySelector('.nav').addEventListener('click', function (e) {
-  e.preventDefault();
-  console.log(e.target); //target refers to the source where the event is created
-  console.log(e.currentTarget); // current target refers to the the actual target where the event listener is in it
-  this.style.backgroundColor = getRandomColor();
-});
+// document.querySelector('.nav').addEventListener('click', function (e) {
+//   e.preventDefault();
+//   console.log(e.target); //target refers to the source where the event is created
+//   console.log(e.currentTarget); // current target refers to the the actual target where the event listener is in it
+//   this.style.backgroundColor = getRandomColor();
+// });
 
-document.querySelector('.nav__links').addEventListener('click', function (e) {
-  e.preventDefault();
-  console.log(e.target); //target refers to the source where the event is created
-  console.log(e.currentTarget); // current target refers to the the actual target where the event listener is in it
-  this.style.backgroundColor = getRandomColor();
-});
+// document.querySelector('.nav__links').addEventListener('click', function (e) {
+//   e.preventDefault();
+//   console.log(e.target); //target refers to the source where the event is created
+//   console.log(e.currentTarget); // current target refers to the the actual target where the event listener is in it
+//   this.style.backgroundColor = getRandomColor();
+// });
 
-document.querySelector('.nav__item').addEventListener('click', function (e) {
-  e.preventDefault();
-  console.log(e.target); //target refers to the source where the event is created
-  console.log(e.currentTarget); // current target refers to the the actual target where the event listener is in it
-  this.style.backgroundColor = getRandomColor();
-});
+// document.querySelector('.nav__item').addEventListener('click', function (e) {
+//   e.preventDefault();
+//   console.log(e.target); //target refers to the source where the event is created
+//   console.log(e.currentTarget); // current target refers to the the actual target where the event listener is in it
+//   this.style.backgroundColor = getRandomColor();
+// });
