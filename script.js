@@ -14,7 +14,7 @@ const nav_links = document.querySelectorAll('.nav__link');
 const tabbed_btns = document
   .querySelector('.operations__tab-container')
   .querySelectorAll('button');
-const nav_elements = document.querySelector('nav').children;
+const nav_elements = page_links.querySelectorAll('.nav__item');
 
 const openModal = function (e) {
   e.preventDefault();
@@ -84,6 +84,42 @@ tabbed_btns.forEach(btn => {
     }
   });
 });
+
+//TODO implement nav links
+nav_elements.forEach(element => {
+  element.addEventListener('mouseover', function (e) {
+    e.preventDefault();
+    for (const el of nav_elements) {
+      if (el === e.target.parentElement) {
+        el.style.opacity = '1';
+      } else {
+        el.style.opacity = '0.5';
+      }
+    }
+  });
+  element.addEventListener('mouseout', function (e) {
+    e.preventDefault();
+    for (const el of nav_elements) {
+      el.style.opacity = '1';
+    }
+  });
+});
+
+//TODO implement sticky navbar
+const observer = new IntersectionObserver(
+  (entries, observers) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting)
+        document.querySelector('.nav').classList.add('sticky');
+      else document.querySelector('.nav').classList.remove('sticky');
+    });
+  },
+  {
+    root: null,
+    threshold: 0,
+    rootMargin: '-' + getComputedStyle(document.querySelector('.nav')).height,
+  }
+).observe(header);
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -155,29 +191,29 @@ message.style.width =
 
 // //example of Event Propagation
 
-// function getRandomColor() {
-//   return `rgb(${Math.trunc(Math.random() * 256)}, ${Math.trunc(
-//     Math.random() * 256
-//   )}, ${Math.trunc(Math.random() * 256)})`;
-// }
+function getRandomColor() {
+  return `rgb(${Math.trunc(Math.random() * 256)}, ${Math.trunc(
+    Math.random() * 256
+  )}, ${Math.trunc(Math.random() * 256)})`;
+}
 
-// document.querySelector('.nav').addEventListener('click', function (e) {
-//   e.preventDefault();
-//   console.log(e.target); //target refers to the source where the event is created
-//   console.log(e.currentTarget); // current target refers to the the actual target where the event listener is in it
-//   this.style.backgroundColor = getRandomColor();
-// });
+document.querySelector('.nav').addEventListener('click', function (e) {
+  e.preventDefault();
+  console.log(e.target); //target refers to the source where the event is created
+  console.log(e.currentTarget); // current target refers to the the actual target where the event listener is in it
+  this.style.backgroundColor = getRandomColor();
+});
 
-// document.querySelector('.nav__links').addEventListener('click', function (e) {
-//   e.preventDefault();
-//   console.log(e.target); //target refers to the source where the event is created
-//   console.log(e.currentTarget); // current target refers to the the actual target where the event listener is in it
-//   this.style.backgroundColor = getRandomColor();
-// });
+document.querySelector('.nav__links').addEventListener('click', function (e) {
+  e.preventDefault();
+  console.log(e.target); //target refers to the source where the event is created
+  console.log(e.currentTarget); // current target refers to the the actual target where the event listener is in it
+  this.style.backgroundColor = getRandomColor();
+});
 
-// document.querySelector('.nav__item').addEventListener('click', function (e) {
-//   e.preventDefault();
-//   console.log(e.target); //target refers to the source where the event is created
-//   console.log(e.currentTarget); // current target refers to the the actual target where the event listener is in it
-//   this.style.backgroundColor = getRandomColor();
-// });
+document.querySelector('.nav__item').addEventListener('click', function (e) {
+  e.preventDefault();
+  console.log(e.target); //target refers to the source where the event is created
+  console.log(e.currentTarget); // current target refers to the the actual target where the event listener is in it
+  this.style.backgroundColor = getRandomColor();
+});
