@@ -88,24 +88,22 @@ tabbed_btns.addEventListener('click', e => {
 });
 
 //TODO implement nav links
-nav_elements.forEach(element => {
-  element.addEventListener('mouseover', function (e) {
-    e.preventDefault();
-    for (const el of nav_elements) {
-      if (el === e.target.parentElement) {
-        el.style.opacity = '1';
-      } else {
-        el.style.opacity = '0.5';
-      }
-    }
-  });
-  element.addEventListener('mouseout', function (e) {
-    e.preventDefault();
-    for (const el of nav_elements) {
-      el.style.opacity = '1';
-    }
+page_links.addEventListener('mouseover', e => {
+  const link = e.target.closest('a');
+  if (!link) return;
+
+  nav_links.forEach(lin => {
+    if (lin === link) lin.style.opacity = 1;
+    else lin.style.opacity = 0.5;
   });
 });
+
+page_links.addEventListener('mouseout', e => {
+  nav_links.forEach(lin => {
+    lin.style.opacity = 1;
+  });
+});
+////////////////////////////////////////////////////////////////////
 
 //TODO implement sticky navbar
 const observer = new IntersectionObserver(
