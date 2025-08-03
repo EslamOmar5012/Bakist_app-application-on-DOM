@@ -89,7 +89,7 @@ tabbed_btns.addEventListener('click', e => {
 
 //TODO implement nav links
 
-const handleLinks = e => {
+const handleLinks = function (e) {
   const link = e.target.closest('a');
   if (!link) return;
 
@@ -98,6 +98,7 @@ const handleLinks = e => {
     else lin.style.opacity = this / 2;
   });
 };
+
 page_links.addEventListener('mouseover', handleLinks.bind(1));
 
 page_links.addEventListener('mouseout', e => {
