@@ -88,15 +88,17 @@ tabbed_btns.addEventListener('click', e => {
 });
 
 //TODO implement nav links
-page_links.addEventListener('mouseover', e => {
+
+const handleLinks = e => {
   const link = e.target.closest('a');
   if (!link) return;
 
   nav_links.forEach(lin => {
-    if (lin === link) lin.style.opacity = 1;
-    else lin.style.opacity = 0.5;
+    if (lin === link) lin.style.opacity = this;
+    else lin.style.opacity = this / 2;
   });
-});
+};
+page_links.addEventListener('mouseover', handleLinks.bind(1));
 
 page_links.addEventListener('mouseout', e => {
   nav_links.forEach(lin => {
