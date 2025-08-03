@@ -11,9 +11,7 @@ const btnScrollTo = document.querySelector('.btn--scroll-to');
 const section1 = document.querySelector('#section--1');
 const page_links = document.querySelector('.nav__links');
 const nav_links = document.querySelectorAll('.nav__link');
-const tabbed_btns = document
-  .querySelector('.operations__tab-container')
-  .querySelectorAll('button');
+const tabbed_btns = document.querySelector('.operations__tab-container');
 const nav_elements = page_links.querySelectorAll('.nav__item');
 const allSections = document.querySelectorAll('.section');
 const allImages = document.querySelectorAll('[data-src]');
@@ -68,23 +66,25 @@ page_links.addEventListener('click', e => {
 });
 
 //TODO implement tabbed component
-tabbed_btns.forEach(btn => {
-  btn.addEventListener('click', function (e) {
-    e.preventDefault();
-    for (const el of tabbed_btns) {
-      if (el === btn) {
-        el.classList.add('operations__tab--active');
-        document
-          .querySelector(`.operations__content--${el.dataset.tab}`)
-          .classList.add('operations__content--active');
-      } else {
-        el.classList.remove('operations__tab--active');
-        document
-          .querySelector(`.operations__content--${el.dataset.tab}`)
-          .classList.remove('operations__content--active');
-      }
-    }
+const tabs = document.querySelectorAll('.operations__tab');
+
+tabbed_btns.addEventListener('click', e => {
+  const click = e.target.closest('button');
+
+  if (!click) return;
+
+  tabs.forEach(tab => {
+    const tabNum = tab.dataset.tab;
+    tab.classList.remove('operations__tab--active');
+    document
+      .querySelector(`.operations__content--${tabNum}`)
+      .classList.remove('operations__content--active');
   });
+
+  click.classList.add('operations__tab--active');
+  document
+    .querySelector(`.operations__content--${click.dataset.tab}`)
+    .classList.add('operations__content--active');
 });
 
 //TODO implement nav links
